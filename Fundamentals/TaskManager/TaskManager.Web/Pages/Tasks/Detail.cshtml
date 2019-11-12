@@ -1,0 +1,67 @@
+﻿@page "{taskId:int}"
+@model TaskManager.Web.Pages.Tasks.DetailModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h3>Task Detail</h3>
+@if (Model.TaskItem == null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger">
+                No Task found for this identifier
+            </div>
+        </div>
+    </div>
+}
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-success">
+                @Model.Message
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12">
+        <label><b>Title: </b></label>
+        <p>
+            @Model.TaskItem.Title
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-3">
+        <label><b>Status: </b></label> @Model.TaskItem.Status.ToString()
+    </div>
+    <div class="col-sm-6 col-md-9">
+        <label><b>Priority: </b></label> @Model.TaskItem.Priority.ToString()
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <label><b>Due Date: </b></label>
+        @if (@Model.TaskItem.DueBy.HasValue)
+        {
+            @Model.TaskItem.DueBy.Value.ToShortDateString()
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <label><b>Description: </b></label>
+        <p>
+            @Model.TaskItem.Description
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <a class="btn btn-outline-primary" asp-page="./List">Go Back To List</a>
+        <a class="btn btn-primary" asp-page="./Edit" asp-route-taskId="@Model.TaskItem.Id">Edit</a>
+    </div>
+</div>
+
